@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['controller' => ProjectController::class, 'prefix' => 'projects', 'middleware' => ['auth']], function () {
+Route::group(['controller' => ProjectController::class,'prefix' => 'projects', 'middleware' => ['auth']], function () {
     Route::get('/', 'index')->name('projects.index');
     Route::get('/{project}', 'show')->name('projects.show')->middleware(['can:view,project']);
     Route::post('/', 'store')->name('projects.store');
