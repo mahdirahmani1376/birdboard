@@ -33,7 +33,9 @@ Route::group(['controller' => ProjectController::class,'prefix' => 'projects', '
     Route::get('/', 'index')->name('projects.index');
     Route::get('/{project}', 'show')->name('projects.show')->middleware(['can:view,project']);
     Route::post('/', 'store')->name('projects.store');
-    Route::get('/create', 'create')->name('projects.create');
+    Route::get('/create/form', 'create')->name('projects.create');
+    Route::put('/{project}/update', 'update')->name('projects.update');
 });
+
 
 require __DIR__.'/auth.php';
