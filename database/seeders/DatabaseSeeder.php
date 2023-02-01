@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Project;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $mahdi = \App\Models\User::factory()->create([
+            'name' => 'mahdi rahmani',
+            'email' => 'rahmanimahdi16@gmail.com',
+            'password' => \Hash::make('Ma13R18@'),
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Project::factory(15)->create(['owner_id' => $mahdi->id]);
+        $this->call([
+            ProjectSeeder::class,
+        ]);
     }
 }
