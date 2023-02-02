@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
             'password' => \Hash::make('Ma13R18@'),
         ]);
 
-        Project::factory(15)->create(['owner_id' => $mahdi->id]);
+        Project::factory(2)->create(['owner_id' => $mahdi->id]);
         $this->call([
-            ProjectSeeder::class,
+//            ProjectSeeder::class,
         ]);
     }
 }

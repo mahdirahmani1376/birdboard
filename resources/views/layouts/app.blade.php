@@ -27,7 +27,7 @@
             @endif
 
             <!-- Page Content -->
-            <main class="container py-4">
+            <main class="container mx-auto py-4 ml-auto mr-auto">
                 @yield('content')
             </main>
         </div>
