@@ -2,27 +2,22 @@
 
 @section('content')
 
-    {!! Form::open(['method'=>'post','route'=>'projects.store']) !!}
-
-        <div class="form-group">
-
-            {!! Form::label('title','Title:') !!}
-            {!! Form::text('title',null,['class'=>'form-control']) !!}
-
-        </div>
-
-        <div class="form-group">
-
-            {!! Form::label('description','description') !!}
-            {!! Form::text('description',null,['class'=>'form-control']) !!}
-
-        </div>
-
-        <div class="form-group">
-            {!! Form::submit('Create Project',['class'=>'btn btn-primary']) !!}
-        </div>
-
-    {!! Form::close() !!}
+    <div class="w-full max-w-xs">
+        <form action="{{ route('projects.store') }}" method="post">
+            @csrf
+            <div class="mb-4">
+                <label for="title">tile</label>
+                <input class="form-input" type="text" name="title">
+            </div>
+            <div class="mb-4">
+                <label for="description">description</label>
+                <input class="form-input" type="text" name="description">
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+    </div>
 
     @if(count($errors) > 0)
 

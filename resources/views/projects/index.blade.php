@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>BirdBoard</h1>
 
+    <div class="display: flex; align-items: center;">
+        <h1 style="margin-right: auto">birdboard</h1>
+        <a href="{{ route('projects.create') }}"> create project</a>
+    </div>
     <ul>
         @forelse($projects as $project)
-            <li>
+            <li class="bg-white shadow">
                 <a href="{{ route('projects.show',$project) }}">
                     <p>{{ $project->title }}</p>
                 </a>
