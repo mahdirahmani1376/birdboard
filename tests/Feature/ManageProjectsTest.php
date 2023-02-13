@@ -14,15 +14,19 @@ class ManageProjectsTest extends BaseTestCase
     /** @test */
     public function test_a_user_can_create_a_project()
     {
-        $attributes = Project::factory()->raw();
+        $this->signIn();
 
-        $response = $this->post(route('projects.store'), $attributes);
+        $attributes = $this->user->projects()->create(Project::factory()->raw());
+
+        $response = $this->post(route('projects.store'), $attributes->toArray());
         $this->assertDatabaseHas('projects', [
             'title' => $attributes['title'],
             'description' => $attributes['description'],
         ]);
 
         $response->assertRedirectToRoute('projects.index');
+
+        $responseGet = $this->get(route('projects.show',));
     }
 
     /** @test */

@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id('id');
+            $table->id();
             $table->string('title');
             $table->text('description');
+            $table->text('notes')->nullable();
             $table->foreignId('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -1,7 +1,14 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
+import Vue from 'vue';
+import VModal from 'vue-js-modal';
 
-window.Alpine = Alpine;
+Vue.use(VModal);
 
-Alpine.start();
+Vue.component('theme-switcher', require('./components/ThemeSwitcher.vue').default);
+Vue.component('new-project-modal', require('./components/NewProjectModal.vue').default);
+Vue.component('dropdown', require('./components/Dropdown.vue').default);
+
+new Vue({
+    el: '#app'
+});
