@@ -20,14 +20,9 @@ class TaskPolicy
         //
     }
 
-    public function store(Project $project): bool
+    public function store(User $user,Project $project)
     {
-        dd(auth()->user()->isNot($project->owner));
-        if (auth()->user()->isNot($project->owner)){
-            abort(403);
-        }
-
-        return true;
+        return $user->is($project->owner);
 
     }
 }

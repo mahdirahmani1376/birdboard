@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Setup\ProjectFactory;
 use Tests\TestCase;
 
 class ProjectTasksTest extends BaseTestCase
@@ -33,6 +34,8 @@ class ProjectTasksTest extends BaseTestCase
 
         $project->addTask('test task');
 
+        app(ProjectFactory::class)->ownedBy($this->user)->withTasks(3)->create();
+
         $task = $project->tasks->first;
         $response = $this->patch(route('tasks.update',['project' => $project,'task' => $task->toArray()]),[
             'body' => 'changed',
@@ -52,13 +55,16 @@ class ProjectTasksTest extends BaseTestCase
 
         $project = Project::factory()->create(Project::factory()->raw());
 
+
         $project->addTask('test task');
 
         $task = $project->tasks->first;
-        $this->patch(route('tasks.update',['project' => $project,'task' => $task->toArray()]),[
+        $response = $this->patch(route('tasks.update',['project' => $project,'task' => $task->toArray()]),[
             'body' => 'changed',
             'completed' => true,
-        ])->assertStatus(403);
+        ]);
+
+        $response->assertStatus(403);
 
         $this->assertDatabaseMissing('tasks',[
             'body' => 'changed',

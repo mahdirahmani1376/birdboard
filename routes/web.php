@@ -40,7 +40,7 @@ Route::group(['controller' => ProjectController::class,'prefix' => 'projects', '
 
 Route::group(['controller' => ProjectTasksController::class,'middleware' => ['auth']],function(){
    Route::post('/projects/{project}/tasks','store')->name('tasks.store');
-   Route::patch('/projects/{project}/tasks/{task}','update')->name('tasks.update');
+   Route::patch('/projects/{project}/tasks/{task}','update')->middleware('can:update,project')->name('tasks.update');
 });
 
 

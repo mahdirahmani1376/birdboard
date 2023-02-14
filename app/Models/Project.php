@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,6 +30,16 @@ class Project extends Model
     public function updateTask($body)
     {
         $this->tasks()->update(compact('body'));
+    }
+
+    public function activity()
+    {
+        return $this->morphMany(Activity::class,'activatable');
+    }
+
+    public function recordActivity($description)
+    {
+        Activity::create(['project_id' => $this->id,'description' => $description]);
     }
 
 }

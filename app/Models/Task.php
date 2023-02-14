@@ -9,6 +9,9 @@ class Task extends Model
 {
     protected $guarded = [];
     protected $touches = ['project'];
+    protected $casts = [
+        'completed' => 'boolean'
+    ];
 
     use HasFactory;
 
@@ -16,4 +19,6 @@ class Task extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+
 }
