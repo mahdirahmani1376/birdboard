@@ -15,7 +15,7 @@ class  ProjectObserver
      */
     public function created(Project $project)
     {
-        $project->recordActivity(__function__);
+        $project->recordActivity(__function__,$project->toArray());
     }
 
     /**
@@ -26,8 +26,11 @@ class  ProjectObserver
      */
     public function updated(Project $project)
     {
-        $project->old = $project->getRawOriginal();
-        $project->recordActivity(__function__);
+        $project->old = $project->getOriginal();
+        $before = array_diff($project->old,$project->toArray());
+        $after =  array_diff($project->toArray(),$project->old);
+
+        $project->recordActivity(__function__,$before,$after);
     }
 
     /**

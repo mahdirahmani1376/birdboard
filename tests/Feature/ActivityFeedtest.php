@@ -22,6 +22,7 @@ class ActivityFeedtest extends BaseTestCase
         $response = $this->put(route('projects.update',$project),$projectChange);
 
         $this->assertDatabaseHas('activities',[
+            'description' => 'updated',
            'changes' => [
                'before' => $project->description,
                'after' => $projectChange['description'],

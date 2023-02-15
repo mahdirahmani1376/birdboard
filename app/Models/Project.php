@@ -38,25 +38,17 @@ class Project extends Model
         return $this->morphMany(Activity::class,'activatable')->latest();
     }
 
-    public function recordActivity($description)
+    public function recordActivity($description,$after= [],$before = [])
     {
-        $before = array_diff($this->old,$this->toArray());
-        $after =  array_diff($this->toArray(),$this->old);
 
-        $this->activity()->create([
+        $activity = $this->activity()->create([
             'description' => $description,
             'changes' => [
                 'before' => $before,
                 'after' => $after,
             ],
         ]);
-//        Activity::create([
-//            'description' => $description,
-//            'changes' => [
-//                'before' => $before,
-//                'after' => $after,
-//            ],
-//        ]);
+
     }
 
 }
