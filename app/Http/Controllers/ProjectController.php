@@ -75,7 +75,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        return 'test';
+        $project->update($request->all());
     }
 
     /**

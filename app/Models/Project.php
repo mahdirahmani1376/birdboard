@@ -11,6 +11,7 @@ class Project extends Model
     use HasFactory;
 
     protected $guarded = [];
+    public $old = [];
 
     public function owner(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -34,12 +35,28 @@ class Project extends Model
 
     public function activity()
     {
-        return $this->morphMany(Activity::class,'activatable');
+        return $this->morphMany(Activity::class,'activatable')->latest();
     }
 
     public function recordActivity($description)
     {
-        Activity::create(['project_id' => $this->id,'description' => $description]);
+        $before = array_diff($this->old,$this->toArray());
+        $after =  array_diff($this->toArray(),$this->old);
+
+        $this->activity()->create([
+            'description' => $description,
+            'changes' => [
+                'before' => $before,
+                'after' => $after,
+            ],
+        ]);
+//        Activity::create([
+//            'description' => $description,
+//            'changes' => [
+//                'before' => $before,
+//                'after' => $after,
+//            ],
+//        ]);
     }
 
 }
